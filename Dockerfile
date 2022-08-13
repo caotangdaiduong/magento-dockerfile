@@ -48,6 +48,61 @@ RUN pecl channel-update pecl.php.net && pecl install \
   && rm -rf /tmp/pear
 
 
+
+RUN docker-php-ext-configure \
+    gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-install \
+    bcmath \
+    bz2 \
+    calendar \
+    exif \
+    gd \
+    gettext \
+    intl \
+    mbstring \
+    mysqli \
+    opcache \
+    pcntl \
+    pdo_mysql \
+    soap \
+    sockets \
+    sodium \
+    sysvmsg \
+    sysvsem \
+    sysvshm \
+    xsl \
+    zip \
+  && docker-php-ext-enable \
+    imagick \
+    redis \
+    ssh2 \
+    xdebug
+
+RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+    && architecture=$(uname -m) \
+    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/$architecture/$version \
+    && mkdir -p /tmp/blackfire \
+    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
+    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+
+RUN curl -sS https://getcomposer.org/installer | \
+  php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY conf/blackfire.ini $PHP_INI_DIR/conf.d/blackfire.ini
+COPY conf/msmtprc /etc/msmtprc
+COPY conf/php.ini $PHP_INI_DIR
+COPY conf/php-fpm.conf /usr/local/etc/
+COPY conf/www.conf /usr/local/etc/php-fpm.d/
+
+# Magento build
+RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077e2bbad8e0 9fe89f9ee74c4bf55d6a2da335837b4a && \
+    composer create-project --repository=https://repo.magento.com/ magento/project-community-edition=2.4.4 . && \
+    composer config --no-plugins allow-plugins.magento/magento-composer-installer true && \
+    composer config --no-plugins allow-plugins.magento/inventory-composer-installer true && \
+    composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
+  
+  
 USER app:app
 WORKDIR /var/www/html
 EXPOSE 9000
