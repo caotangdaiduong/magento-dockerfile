@@ -100,7 +100,39 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
     composer create-project --repository=https://repo.magento.com/ magento/project-community-edition=2.4.4 . && \
     composer config --no-plugins allow-plugins.magento/magento-composer-installer true && \
     composer config --no-plugins allow-plugins.magento/inventory-composer-installer true && \
-    composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true
+    composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true && \
+        bin/magento setup:install \
+        --db-host="magento" \
+        --db-name="magento" \
+        --db-user="magento" \
+        --db-password="magento" \
+        --base-url=https://magento.dev/ \
+        --base-url-secure=https://magento.dev/ \
+        --backend-frontname=admin \
+        --admin-firstname=admin \
+        --admin-lastname=admin \
+        --admin-email=admin@gmail.com \
+        --admin-user=admin \
+        --admin-password=admin123 \
+        --language=en_US \
+        --currency=USD \
+        --timezone=America/New_York \
+        --cache-backend=redis \
+        --cache-backend-redis-server=magento-redis \
+        --cache-backend-redis-db=0 \
+        --page-cache=redis \
+        --page-cache-redis-server=magento-redis \
+        --page-cache-redis-db=1 \
+        --session-save=redis \
+        --session-save-redis-host=magento-redis \
+        --session-save-redis-log-level=4 \
+        --session-save-redis-db=2 \
+        --search-engine=elasticsearch7 \
+        --elasticsearch-host=magento-elasticsearch \
+        --elasticsearch-port=9200 \
+        --use-rewrites=1 \
+        --no-interaction && \
+    bin/magento setup:static-content:deploy -f
   
   
 USER app:app
