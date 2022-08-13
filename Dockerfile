@@ -109,7 +109,7 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
         --backend-frontname=admin \
         --admin-firstname=admin \
         --admin-lastname=admin \
-        --admin-email=admin \
+        --admin-email=admin@gmail.com \
         --admin-user=admin \
         --admin-password=admin123 \
         --language=en_US \
