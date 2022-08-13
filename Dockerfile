@@ -132,7 +132,6 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
         --elasticsearch-port=9200 \
         --use-rewrites=1 \
         --no-interaction && \
-    bin/magento setup:static-content:deploy -f
     bin/magento setup:static-content:deploy -f && \
     bin/magento indexer:reindex && \
     bin/magento config:set web/secure/base_url https://magento.dev/ && \
