@@ -141,6 +141,5 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
     bin/magento cron:install
 
 USER app:app
-VOLUME /var/www
 WORKDIR /var/www/html
 EXPOSE 9000
