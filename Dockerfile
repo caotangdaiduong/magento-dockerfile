@@ -94,7 +94,8 @@ COPY conf/php-fpm.conf /usr/local/etc/
 COPY conf/www.conf /usr/local/etc/php-fpm.d/
 
 # Magento build
-RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077e2bbad8e0 9fe89f9ee74c4bf55d6a2da335837b4a && \
+RUN cd /var/www/html && \
+    composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077e2bbad8e0 9fe89f9ee74c4bf55d6a2da335837b4a && \
     composer create-project --repository=https://repo.magento.com/ magento/project-community-edition=2.4.4 . && \
     composer config --no-plugins allow-plugins.magento/magento-composer-installer true && \
     composer config --no-plugins allow-plugins.magento/inventory-composer-installer true && \
@@ -142,5 +143,5 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
 
 
 USER app:app
-#WORKDIR /var/www/html
+WORKDIR /var/www/html
 EXPOSE 9000
