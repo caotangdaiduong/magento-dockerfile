@@ -102,7 +102,7 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
     composer config --no-plugins allow-plugins.magento/inventory-composer-installer true && \
     composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true && \
         bin/magento setup:install \
-        --db-host="magento" \
+        --db-host="magento-mariadb" \
         --db-name="magento" \
         --db-user="magento" \
         --db-password="magento" \
