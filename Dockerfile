@@ -2,12 +2,13 @@ FROM php:8.1-fpm-bullseye
 MAINTAINER ThePhamDinh [thepd@smartosc.com]
 
 ARG APP_ID=1000
-USER app:app
-WORKDIR /var/www/html
-EXPOSE 9000
 
 RUN groupadd -g "$APP_ID" app \
   && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
+
+USER app:app
+WORKDIR /var/www/html
+EXPOSE 9000
 
 RUN mkdir -p /etc/nginx/html /var/www/html \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d
