@@ -6,10 +6,6 @@ ARG APP_ID=1000
 RUN groupadd -g "$APP_ID" app \
   && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
 
-USER app:app
-WORKDIR /var/www/html
-EXPOSE 9000
-
 RUN mkdir -p /etc/nginx/html /var/www/html \
   && chown -R app:app /etc/nginx /var/www /usr/local/etc/php/conf.d
 
@@ -143,3 +139,8 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
     bin/magento cache:flush && \
     bin/magento cron:install && \
     bin/magento cron:install
+
+
+USER app:app
+#WORKDIR /var/www/html
+EXPOSE 9000
