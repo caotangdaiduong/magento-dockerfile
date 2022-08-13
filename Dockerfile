@@ -2,6 +2,9 @@ FROM php:8.1-fpm-bullseye
 MAINTAINER ThePhamDinh [thepd@smartosc.com]
 
 ARG APP_ID=1000
+USER app:app
+WORKDIR /var/www/html
+EXPOSE 9000
 
 RUN groupadd -g "$APP_ID" app \
   && useradd -g "$APP_ID" -u "$APP_ID" -d /var/www -s /bin/bash app
@@ -139,7 +142,3 @@ RUN composer config --global http-basic.repo.magento.com 9a88e8f9040ba41a8516077
     bin/magento cache:flush && \
     bin/magento cron:install && \
     bin/magento cron:install
-
-USER app:app
-WORKDIR /var/www/html
-EXPOSE 9000
