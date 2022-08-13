@@ -141,7 +141,7 @@ RUN cd /var/www/html && \
     bin/magento cron:install && \
     bin/magento deploy:mode:set developer
 
-
 USER app:app
 WORKDIR /var/www/html
+VOLUME /var/www
 EXPOSE 9000
