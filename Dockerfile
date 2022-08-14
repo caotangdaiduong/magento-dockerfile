@@ -137,6 +137,7 @@ RUN cd /var/www/html && \
     bin/magento indexer:reindex && \
     bin/magento config:set web/secure/base_url https://magento.dev/ && \
     bin/magento config:set web/unsecure/base_url https://magento.dev/ && \
+    chown -R app:app /var/www/html/ && \
     bin/magento cache:flush && \
     bin/magento cron:install && \
     bin/magento deploy:mode:set developer
