@@ -102,7 +102,7 @@ RUN cd /var/www/html && \
     composer config --no-plugins allow-plugins.magento/magento-composer-installer true && \
     composer config --no-plugins allow-plugins.magento/inventory-composer-installer true && \
     composer config --no-plugins allow-plugins.laminas/laminas-dependency-plugin true && \
-        bin/magento setup:install \
+    bin/magento setup:install \
         --db-host="magento-mariadb" \
         --db-name="magento" \
         --db-user="magento" \
@@ -143,5 +143,5 @@ RUN cd /var/www/html && \
 
 USER app:app
 WORKDIR /var/www/html
-VOLUME /var/www
+# VOLUME /var/www
 EXPOSE 9000
