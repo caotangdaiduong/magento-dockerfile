@@ -107,8 +107,8 @@ RUN cd /var/www/html && \
         --db-name="magento" \
         --db-user="magento" \
         --db-password="magento" \
-        --base-url=https://magento.dev/ \
-        --base-url-secure=https://magento.dev/ \
+        --base-url=https://m2.bigbot.cc/ \
+        --base-url-secure=https://m2.bigbot.cc/ \
         --backend-frontname=admin \
         --admin-firstname=admin \
         --admin-lastname=admin \
@@ -135,8 +135,8 @@ RUN cd /var/www/html && \
         --no-interaction && \
     bin/magento setup:static-content:deploy -f && \
     bin/magento indexer:reindex && \
-    bin/magento config:set web/secure/base_url https://magento.dev/ && \
-    bin/magento config:set web/unsecure/base_url https://magento.dev/ && \
+    bin/magento config:set web/secure/base_url https://m2.bigbot.cc/ && \
+    bin/magento config:set web/unsecure/base_url https://m2.bigbot.cc/ && \
     chown -R app:app /var/www/html/ && \
     bin/magento cache:flush && \
     bin/magento cron:install && \
